@@ -120,7 +120,7 @@ fi
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias grep='grep --exclude-dir=.svn'
+alias grep='grep --exclude-dir=.svn --color=always'
 
 ## SVN and SSH
 export SSH_USER=h-takeda
@@ -131,24 +131,21 @@ export OGRE_RTT_MODE=Copy
 
 # emacs
 alias e='emacs -nw'
+export EDITOR='emacs -nw'
 
 # roseus
 alias r='roseus'
+alias er='rlwrap roseus'
 
 # ros
 source /opt/ros/kinetic/setup.bash
-#source ~/catkin_ws/jaxon_tutorial/devel/setup.bash
 source ~/catkin_ws/jaxon_tutorial2/devel/setup.bash
-export EDITOR='emacs -nw'
-
 export CNOID_INSTALL_DIR=/usr/local/choreonoid
-#export CNOID_RTM_DIR=~/catkin_ws/jaxon_tutorial/devel
 export PKG_CONFIG_PATH=${CNOID_INSTALL_DIR}/lib/pkgconfig:$PKG_CONFIG_PATH
 export PATH=${CNOID_INSTALL_DIR}/bin:$PATH
-
 export ROBOT=RHP4B
-#export ROBOT=RHP3
 
+# ternimal
 export PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w$(__git_ps1) \[\033[01;34m\]\$\[\033[00m\] '
 
 # open pdf
@@ -157,7 +154,7 @@ function pdf() {
 }
 
 # open directory
-alias op='gnome-open .'
+alias nau='nautilus .'
 
 # convert newest mp4 -> gif
 function gif() {
