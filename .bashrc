@@ -121,6 +121,8 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias grep='grep --exclude-dir=.svn --color=always'
+alias clip='xclip -selection clipboard'
+alias open='gnome-open'
 
 ## SVN and SSH
 export SSH_USER=h-takeda
@@ -153,9 +155,6 @@ function pdf() {
 	evince $1 &
 }
 
-# open directory
-alias nau='nautilus .'
-
 # convert newest mp4 -> gif
 function gif() {
 	cd ~/Videos;
@@ -164,4 +163,9 @@ function gif() {
 	ffmpeg -i $VNAME -an -s 624x774 -pix_fmt rgb24 -f gif $NEWVNAME
 	nautilus .
 	exit
+}
+
+# latex
+function latex() {
+	platex $1.tex; dvipdfmx $1.dvi; gnome-open $1.pdf
 }
