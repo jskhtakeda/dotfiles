@@ -142,6 +142,9 @@ alias er='rlwrap roseus'
 # ros
 source /opt/ros/kinetic/setup.bash
 source ~/catkin_ws/jaxon_tutorial2/devel/setup.bash
+source ~/catkin_ws/poyon/devel/setup.bash
+source ~/catkin_ws/enshu/devel/setup.bash
+source `rospack find jsk_tools`/src/bashrc.ros
 export CNOID_INSTALL_DIR=/usr/local/choreonoid
 export PKG_CONFIG_PATH=${CNOID_INSTALL_DIR}/lib/pkgconfig:$PKG_CONFIG_PATH
 export PATH=${CNOID_INSTALL_DIR}/bin:$PATH

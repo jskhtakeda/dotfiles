@@ -115,6 +115,10 @@
 ;; M-x g goto-line
 (global-set-key "\M-g" 'goto-line)
 
+;; rosemacs
+(add-to-list 'load-path "/opt/ros/kinetic/share/emacs/site-lisp")
+(require 'rosemacs-config)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
