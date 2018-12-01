@@ -103,3 +103,18 @@
 ;; rosemacs
 (add-to-list 'load-path "/opt/ros/kinetic/share/emacs/site-lisp")
 (require 'rosemacs-config)
+
+;; helm
+(require 'helm-config)
+(helm-mode 1)
+(define-key global-map (kbd "M-x") 'helm-M-x)
+(define-key global-map (kbd "C-x C-f") 'helm-find-files)
+
+;; undo-tree C-x u 
+(require 'undo-tree)
+(global-undo-tree-mode t)
+(global-set-key (kbd "M-/") 'undo-tree-redo)
+
+;; anzu
+(require 'anzu)
+(global-anzu-mode +1)
