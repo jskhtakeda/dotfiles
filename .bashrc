@@ -172,3 +172,33 @@ function gif() {
 function latex() {
 	platex $1.tex; dvipdfmx $1.dvi; gnome-open $1.pdf
 }
+
+export QSYS_ROOTDIR="/home/htakeda/altera/15.0/quartus/sopc_builder/bin"
+export PATH=$PATH:$HOME/altera/15.0/quartus/bin
+export ALTERAOCLSDKROOT="/home/htakeda/altera/15.0/hld"
+
+function median3() {
+	awk '{if($1 <= $2 && $2 <= $3) print $2;
+     else if($1 <= $3 && $3 <= $2) print $3;
+     else if($2 <= $1 && $1 <= $3) print $1;
+     else if($2 <= $3 && $3 <= $1) print $3;
+     else if($3 <= $1 && $1 <= $2) print $1;
+     else print $2}'
+}
+
+function bag2log() {
+	rostopic echo /iq -p -b ~/bag/${1}kg${2}.bag | sed -e '/%/d' | cut -f 2-3 -d "," | sed -e "s/,/ /" | awk 'BEGIN{tm=0;lasttm=0} {if(NR==1) lasttm=$1} {if(0<=$1-lasttm)tm=tm+$1-lasttm;else tm=tm+$1-lasttm+65536} {lasttm=$1} {print tm,$2}'> ~/bag/${1}kg${2}.log;
+	echo -e "\e[1;34mFind dt larger than 3000\e[1;37m"
+	cat ~/bag/${1}kg${2}.log | awk '{if(NR==1) lasttm=0} {if($1-lasttm>3000) print NR,$1-lasttm} {lasttm=$1}'
+	cat ~/bag/${1}kg${2}.log | awk 'BEGIN{lastt=0; lastx=0} {dt=$1-lastt; dx=$2-lastx; lastt=$1; lastx=$2; if(NR>1) print $1-dt/2,dx/dt}' > ~/bag/${1}kg${2}.vel.log;
+	cat ~/bag/${1}kg${2}.vel.log | awk '{if(NR>2) print $2,last2,llast2} {llast2=last2; last2=$2}' | median3 > ~/bag/${1}kg${2}.med.log;
+	cat ~/bag/${1}kg${2}.med.log | awk 'BEGIN{v=0;last1=0} {if(sqrt(($1-last1)^2)<0.5)print v=0.9*v+0.1*$1} {last1=$1}' > ~/bag/${1}kg${2}.lpf.log;
+	cat ~/bag/${1}kg${2}.vel.log | sed -e '1d' | sed '$d' > ~/bag/${1}kg${2}.velrm.log
+	paste ~/bag/${1}kg${2}.velrm.log ~/bag/${1}kg${2}.med.log ~/bag/${1}kg${2}.lpf.log > ~/bag/${1}kg${2}.tmp.log;
+	rm -f ~/bag/${1}kg${2}.vel.log ~/bag/${1}kg${2}.velrm.log ~/bag/${1}kg${2}.med.log ~/bag/${1}kg${2}.lpf.log;
+	mv ~/bag/${1}kg${2}.tmp.log ~/bag/${1}kg${2}.vel.log;
+	echo -e "\e[1;34mMax v and min v\e[1;37m";
+	cat ~/bag/${1}kg${2}.vel.log | awk 'BEGIN{max=0} {if(max<$3) max=$3} END{print "max: ",max}';
+	cat ~/bag/${1}kg${2}.vel.log | awk 'BEGIN{min=0} {if(min>$3) min=$3} END{print "min: ",min}';
+	echo "plot '~/bag/${1}kg${2}.vel.log' using 1:3 w lp" | gnuplot -persist;
+	}
