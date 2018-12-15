@@ -1,0 +1,14 @@
+[user]
+	name = h-takeda
+	email = h-takeda@jsk.imi.i.u-tokyo.ac.jp\n
+[color]
+	ui = auto
+[http]
+	sslVerify = false
+[alias]
+	st = status
+	co = checkout
+	cm = commit -m
+[url "git@github.com:"]
+    InsteadOf = https://github.com/
+	
