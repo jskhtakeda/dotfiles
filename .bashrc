@@ -187,13 +187,13 @@ function median3() {
 }
 
 function bag2log() {
-	rostopic echo /iq -p -b ~/bag/${1}kg${2}.bag | sed -e '/%/d' | cut -f 2-3 -d "," | sed -e "s/,/ /" | awk 'BEGIN{tm=0;lasttm=0} {if(NR==1) lasttm=$1} {if(0<=$1-lasttm)tm=tm+$1-lasttm;else tm=tm+$1-lasttm+65536} {lasttm=$1} {print tm,$2}'> ~/bag/${1}kg${2}.log;
-	echo -e "\e[1;34mFind dt larger than 3000\e[1;37m"
-	cat ~/bag/${1}kg${2}.log | awk '{if(NR==1) lasttm=0} {if($1-lasttm>3000) print NR,$1-lasttm} {lasttm=$1}'
+	rostopic echo /iq -p -b ~/bag/${1}kg${2}.bag | sed -e '/%/d' | cut -f 2-3 -d "," | sed -e "s/,/ /" | awk 'BEGIN{tm=0;lasttm=0} {if(NR==1) lasttm=$1} {if(0<=$1-lasttm)tm=tm+$1-lasttm;else tm=tm+$1-lasttm+65536} {lasttm=$1} {print tm/(10^6),$2*2*3.14159/(2^16)}'> ~/bag/${1}kg${2}.log;
+	echo -e "\e[1;34mFind dt larger than 3000\e[1;37m";
+	cat ~/bag/${1}kg${2}.log | awk '{if(NR==1) lasttm=0} {if($1-lasttm>3000) print NR,$1-lasttm} {lasttm=$1}';
 	cat ~/bag/${1}kg${2}.log | awk 'BEGIN{lastt=0; lastx=0} {dt=$1-lastt; dx=$2-lastx; lastt=$1; lastx=$2; if(NR>1) print $1-dt/2,dx/dt}' > ~/bag/${1}kg${2}.vel.log;
 	cat ~/bag/${1}kg${2}.vel.log | awk '{if(NR>2) print $2,last2,llast2} {llast2=last2; last2=$2}' | median3 > ~/bag/${1}kg${2}.med.log;
 	cat ~/bag/${1}kg${2}.med.log | awk 'BEGIN{v=0;last1=0} {if(sqrt(($1-last1)^2)<0.5)print v=0.9*v+0.1*$1} {last1=$1}' > ~/bag/${1}kg${2}.lpf.log;
-	cat ~/bag/${1}kg${2}.vel.log | sed -e '1d' | sed '$d' > ~/bag/${1}kg${2}.velrm.log
+	cat ~/bag/${1}kg${2}.vel.log | sed -e '1d' | sed '$d' > ~/bag/${1}kg${2}.velrm.log;
 	paste ~/bag/${1}kg${2}.velrm.log ~/bag/${1}kg${2}.med.log ~/bag/${1}kg${2}.lpf.log > ~/bag/${1}kg${2}.tmp.log;
 	rm -f ~/bag/${1}kg${2}.vel.log ~/bag/${1}kg${2}.velrm.log ~/bag/${1}kg${2}.med.log ~/bag/${1}kg${2}.lpf.log;
 	mv ~/bag/${1}kg${2}.tmp.log ~/bag/${1}kg${2}.vel.log;
