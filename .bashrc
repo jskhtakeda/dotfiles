@@ -155,7 +155,7 @@ export PATH=${CNOID_INSTALL_DIR}/bin:$PATH
 export ROBOT=RHP4B
 
 # ternimal
-export PS1='\[\033[01;36m\][$(roscd; echo `pwd`|rev|cut -f2 -d '/'|rev|cut -c 1-3)] \[\033[01;32m\]\u@\h\[\033[01;33m\] \w$(__git_ps1) \[\033[01;34m\]\$\[\033[00m\] '
+export PS1='\[\033[01;36m\][$(roscd; echo `pwd`|rev|cut -f2 -d '/'|rev|cut -c 1-3)] \[\033[01;32m\]\h\[\033[01;33m\] \w$(__git_ps1) \[\033[01;34m\]\$\[\033[00m\] '
 
 # open pdf
 function pdf() {
