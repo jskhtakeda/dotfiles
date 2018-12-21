@@ -9,6 +9,7 @@
 	st = status
 	co = checkout
 	cm = commit -m
+    tree = log --graph
 [url "git@github.com:"]
     InsteadOf = https://github.com/
 	

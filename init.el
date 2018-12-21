@@ -117,3 +117,6 @@
 ;; anzu
 (require 'anzu)
 (global-anzu-mode +1)
+
+;; use spase for indent
+(setq-default indent-tabs-mode nil)

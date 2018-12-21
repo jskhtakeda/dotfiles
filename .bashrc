@@ -140,18 +140,21 @@ alias r='roseus'
 alias er='rlwrap roseus'
 
 # ros
-source /opt/ros/kinetic/setup.bash
-source ~/catkin_ws/jaxon_tutorial2/devel/setup.bash
+# source /opt/ros/kinetic/setup.bash
+# source ~/catkin_ws/jaxon_tutorial2/devel/setup.bash
 source ~/catkin_ws/poyon/devel/setup.bash
-source ~/catkin_ws/enshu/devel/setup.bash
-source `rospack find jsk_tools`/src/bashrc.ros
+# source ~/catkin_ws/enshu/devel/setup.bash
+# source ~/catkin_ws/khi_tutorial/devel/setup.bash
+# source `rospack find jsk_tools`/src/bashrc.ros
 export CNOID_INSTALL_DIR=/usr/local/choreonoid
+# export CNOID_RTM_DIR=~/catkin_ws/jaxon_tutorial2/devel
+export CNOID_RTM_DIR=/opt/ros/kinetic
 export PKG_CONFIG_PATH=${CNOID_INSTALL_DIR}/lib/pkgconfig:$PKG_CONFIG_PATH
 export PATH=${CNOID_INSTALL_DIR}/bin:$PATH
 export ROBOT=RHP4B
 
 # ternimal
-export PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w$(__git_ps1) \[\033[01;34m\]\$\[\033[00m\] '
+export PS1='\[\033[01;36m\][$(roscd; echo `pwd`|rev|cut -f2 -d '/'|rev|cut -c 1-3)] \[\033[01;32m\]\u@\h\[\033[01;33m\] \w$(__git_ps1) \[\033[01;34m\]\$\[\033[00m\] '
 
 # open pdf
 function pdf() {
