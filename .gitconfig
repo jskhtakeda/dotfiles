@@ -1,15 +1,14 @@
 [user]
-	name = h-takeda
-	email = h-takeda@jsk.imi.i.u-tokyo.ac.jp\n
+    name = h-takeda
+    email = h-takeda@jsk.imi.i.u-tokyo.ac.jp\n
 [color]
-	ui = auto
+    ui = auto
 [http]
-	sslVerify = false
+    sslVerify = false
 [alias]
-	st = status
-	co = checkout
-	cm = commit -m
-    tree = log --graph
+    st = status
+    co = checkout
+    cm = commit -m
+    hist = log --graph
 [url "git@github.com:"]
     InsteadOf = https://github.com/
-	
